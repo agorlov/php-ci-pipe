@@ -2,9 +2,9 @@
 
 CI/CD Pipeline for php projects
 
-1. Project environment: lxc container https://gist.github.com/agorlov/d40c86e534116ce2e2f3ef31fad20f9f
-2. README
-3. pdd (todo to ticket maker)
+1. Project environment: setup [lxc container](https://gist.github.com/agorlov/d40c86e534116ce2e2f3ef31fad20f9f)
+2. Write README.md
+3. Plug PDD (todo to ticket maker)
 4. rultor (build, checks and deployment
   - deploy.php
   - psr2 - phpcs
@@ -22,7 +22,7 @@ CI/CD Pipeline for php projects
  ![image](https://user-images.githubusercontent.com/2485728/64680787-1cc72f00-d487-11e9-92a8-213cec0ed747.png)
  
  
- # pdd (puzzle driven development)
+ # PDD (puzzle driven development)
  
  ## Настройки
  
