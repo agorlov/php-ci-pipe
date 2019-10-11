@@ -6,6 +6,9 @@ stylelint вроде бы умеет чекать SMACSS/BEM/... (изучить
 
 ## Related Materials
 
+BEM 101:\
+https://css-tricks.com/bem-101/
+
 SASS/CSS common style conventions:\
 https://github.com/airbnb/css
 
