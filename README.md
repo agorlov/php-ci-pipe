@@ -95,3 +95,39 @@ https://github.com/yegor256/pdd#how-to-format
 2. зайти в директорию проекта и запустить: pdd -v -f pdd.out
 
 Если есть ошибки, исправить.
+
+# Composer
+
+Фрагмент composer.json:
+
+```json
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "squizlabs/php_codesniffer": "^3.4",
+        "phpunit/phpunit": "8",
+        "codeception/codeception": "^3.0",
+        "phpstan/phpstan": "^0.11.8",
+        "phpmd/phpmd": "^2.6"
+    },
+...
+    "scripts": {
+        "phpcs-fix": [
+            "phpcs --standard=PSR2 --colors src/ tests/unit",
+            "php-cs-fixer fix src/",
+            "php-cs-fixer fix tests/unit"
+        ],
+        "test": [
+            "codecept run unit"
+        ],
+        "phpcs": [
+            "vendor/bin/phpcs --standard=PSR2 src/ tests/unit/"
+        ],
+        "phpstan": [
+            "vendor/bin/phpstan analyse --error-format=table --no-progress -l3 -c phpstan.neon src/ tests/unit/"
+        ],
+        "phpmd": [
+            "php phpmd.php"
+        ]
+    },
+    ...
+```
