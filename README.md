@@ -131,3 +131,33 @@ https://github.com/yegor256/pdd#how-to-format
     },
     ...
 ```
+# PSR2: Actions + PHPCS
+
+Теперь чек на PSR2 можно подключить **легко** благодаря Github Actions:
+
+1. Подключаем composer пакет: ``$ composer require squizlabs/php_codesniffer``
+2. Создаем файл ``.github/workflows/php.yml``:
+
+```yaml
+name: PHP Codecept tests and PSR2
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+# тесты временно отключил, пока не починим тесты
+#    - name: Run test suite
+#      run: composer test
+      
+    - name: Run PSR2 Check
+      run: composer phpcs
+```
