@@ -161,3 +161,107 @@ jobs:
     - name: Run PSR2 Check
       run: composer phpcs
 ```
+
+## Github Actions: full build в lxc
+
+```yaml
+name: Сборка lxc-контейнера и запуск всех тестов
+
+# Запускаем, когда меняется что-то в lxc-миграциях, либо миграциях, либо в функциональных тестах
+on:
+  pull_request:
+    paths:
+    - "lxc-migrations/**"
+    - "migrations/**"
+    - "tests/functional/**"
+    #types: [opened, synchronize]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install lxc system package
+      run: |
+        sudo apt-get update
+        sudo apt-get install lxc lxc-templates -y
+
+    - name: Создаем lxc-контейнер
+      run: |
+        sudo bash ./lxc-init.sh
+
+    - name: Обновление lxc-контейнера
+      run: sudo php ./lxc-update.php
+
+    - name: Запуск всех тестов в контейнере
+      run: |
+        sudo lxc-start axe
+        sudo lxc-attach axe -- su - runner -c "cd /www && /usr/bin/php vendor/bin/codecept run"
+```
+
+##  Github Actions: deploy
+
+```yaml
+name: Развертывание в прод
+
+on:
+  release:
+    types: [published]
+
+# Для отладки - тренировался на ветке deploy-setup
+#  push:
+#    branches:
+#      - "deploy-setup"
+
+# Варианты событий для старта деплоя:
+#  release
+#  push: "release/**"
+#
+
+# Еще вариант, при закрытии _смерженного_ PR:
+# https://github.community/t5/GitHub-Actions/Depend-on-another-workflow/td-p/32317
+#on:
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - master
+#
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#    if: github.event.pull_request.merged
+#    ...
+
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    # Можно ли запустить билд, перед заливкой?
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Подготовка ключей
+        run: |
+          echo "${{ secrets.AXE_SSH_KEY }}" > key.txt
+          chmod 400 key.txt
+          ls -l
+          mkdir -p ~/.ssh
+          ssh-keyscan -p2225 axe.inline-ltd.ru  >> ~/.ssh/known_hosts
+
+
+      - name: Composer update
+        run: |
+          composer update --prefer-dist --no-progress --no-suggest
+
+      - name: Deploy to production
+        run: |
+          php scripts/deploy.php go
+
+```
