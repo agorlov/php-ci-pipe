@@ -139,13 +139,14 @@ https://github.com/yegor256/pdd#how-to-format
 2. Создаем файл ``.github/workflows/php.yml``:
 
 ```yaml
-name: PHP Codecept tests and PSR2
+name: Unit tests and PSR2 check
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -154,13 +155,13 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-# тесты временно отключил, пока не починим тесты
-#    - name: Run test suite
-#      run: composer test
-      
+    - name: Run test suite
+      run: composer test unit
+
     - name: Run PSR2 Check
       run: composer phpcs
 ```
+
 
 ## Github Actions: full build в lxc
 
