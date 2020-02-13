@@ -257,9 +257,9 @@ jobs:
           ssh-keyscan -p2225 axe.inline-ltd.ru  >> ~/.ssh/known_hosts
 
 
-      - name: Composer update
+      - name: Install php-packages (composer)
         run: |
-          composer update --prefer-dist --no-progress --no-suggest
+          composer install --prefer-dist --no-progress --no-suggest --no-dev
 
       - name: Deploy to production
         run: |
