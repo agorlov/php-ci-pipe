@@ -5,13 +5,15 @@ CI/CD Pipeline for php projects
 1. Project environment: setup [lxc container](https://gist.github.com/agorlov/d40c86e534116ce2e2f3ef31fad20f9f)
 2. Write README.md
 3. Plug PDD (todo to ticket maker)
-4. rultor (build, checks and deployment
+4. Github Actions instead rultor (build, checks and deployment
   - deploy.php
   - psr2 - phpcs
   - phpmd
   - phplint ?
   - jslint
   - unit tests 
+  - phpdoc check (in every php file must be phpdoc block)
+  - is milesone set check in original issue
 5. codeception
 6. хочу: возможность прогнать чеки сразу после пула, не только при мерже и деплое
 7. бот, который автоматически удаляет смерженые бранчи: https://github.com/apps/delete-merged-branch 
