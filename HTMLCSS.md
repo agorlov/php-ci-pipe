@@ -38,6 +38,8 @@ https://habr.com/ru/post/301594/
 
 ## БЭМ/BEM
 
+Доступно про БЭМ за 17 минут: https://www.youtube.com/watch?v=HihYQVuH64U
+
 ```
 .block 
 .block__element 
