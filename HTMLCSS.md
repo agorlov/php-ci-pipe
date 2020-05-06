@@ -46,6 +46,9 @@ https://habr.com/ru/post/301594/
 .block--modifier
 ```
 
+https://nicothin.pro/idiomatic-pre-CSS/#media
+
+
 ## http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
 ```
 /* Utility */
